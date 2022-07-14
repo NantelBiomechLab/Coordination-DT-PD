@@ -1,0 +1,31 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: >-
+  Data and Code for: Interlimb coordination in
+  Parkinson's Disease is affected by a visuospatial
+  dual task
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Allen
+    family-names: Hill
+    affiliation: >-
+      School of Human Kinetics, University of Ottawa,
+      Ottawa, ON, Canada
+    orcid: 'https://orcid.org/0000-0003-0939-0765'
+  - given-names: Julie
+    family-names: Nantel
+    orcid: 'https://orcid.org/0000-0001-7253-9222'
+    affiliation: >-
+      School of Human Kinetics, University of Ottawa,
+      Ottawa, ON, Canada
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.6835766
+repository-code: >-
+  https://github.com/NantelBiomechLab/Coordination-DT-PD
+license: MIT
