@@ -5,7 +5,7 @@ using DatasetManager, LabDataSources, C3D, Biomechanics, Peaks, DSP, Statistics,
 
 include("generate.jl")
 
-export analyze, getheel
+export analyze, getheel, centerd
 
 function centerd(signal, events)
     mi, ma = intervalextrema(signal, events)
@@ -46,10 +46,11 @@ function analyze(trial;
     sr = SegmentResult(seg)
     res = results(sr)
 
-    if conditions(trial)[:ma_side] == "right"
+    if conditions(trial)[:ma_side] == "R"
         ma = "r"
         la = "l"
     else
+        @assert conditions(trial)[:ma_side] == "L"
         ma = "l"
         la = "r"
     end
@@ -58,29 +59,29 @@ function analyze(trial;
     mins, maxs = intervalextrema(jnts[!, "hip_flexion_r"], rfcidx)
     res["rhip_peak_flex"] = circmeand(maxs)
     res["rhip_rom"] = circmeand(maxs) - circmeand(mins)
-    res["rhip_rom_sd"] = circstdd(maxs - mins)
+    res["rhip_rom_cov"] = circstdd(maxs - mins)/res["rhip_rom"]*100
     mins, maxs = intervalextrema(jnts[!, "hip_flexion_l"], rfcidx)
     res["lhip_peak_flex"] = circmeand(maxs)
     res["lhip_rom"] = circmeand(maxs) - circmeand(mins)
-    res["lhip_rom_sd"] = circstdd(maxs - mins)
+    res["lhip_rom_cov"] = circstdd(maxs - mins)/res["lhip_rom"]*100
     mins, maxs = intervalextrema(jnts[!, "arm_flex_r"], rfcidx)
     res["rshoulder_peak_flex"] = circmeand(maxs)
     res["rshoulder_rom"] = circmeand(maxs) - circmeand(mins)
-    res["rshoulder_rom_sd"] = circstdd(maxs - mins)
+    res["rshoulder_rom_cov"] = circstdd(maxs - mins)/res["rshoulder_rom"]*100
     mins, maxs = intervalextrema(jnts[!, "arm_flex_l"], rfcidx)
     res["lshoulder_peak_flex"] = circmeand(maxs)
     res["lshoulder_rom"] = circmeand(maxs) - circmeand(mins)
-    res["lshoulder_rom_sd"] = circstdd(maxs - mins)
+    res["lshoulder_rom_cov"] = circstdd(maxs - mins)/res["lshoulder_rom"]*100
 
     res["ma_hip_rom"] = res[ma*"hip_rom"]
     res["la_hip_rom"] = res[la*"hip_rom"]
-    res["ma_hip_rom_sd"] = res[ma*"hip_rom_sd"]
-    res["la_hip_rom_sd"] = res[la*"hip_rom_sd"]
+    res["ma_hip_rom_cov"] = res[ma*"hip_rom_cov"]
+    res["la_hip_rom_cov"] = res[la*"hip_rom_cov"]
     res["hip_rom_asym"] = asymmetry(res["ma_hip_rom"], res["la_hip_rom"])
     res["ma_shoulder_rom"] = res[ma*"shoulder_rom"]
     res["la_shoulder_rom"] = res[la*"shoulder_rom"]
-    res["ma_shoulder_rom_sd"] = res[ma*"shoulder_rom_sd"]
-    res["la_shoulder_rom_sd"] = res[la*"shoulder_rom_sd"]
+    res["ma_shoulder_rom_cov"] = res[ma*"shoulder_rom_cov"]
+    res["la_shoulder_rom_cov"] = res[la*"shoulder_rom_cov"]
     res["shoulder_rom_asym"] = asymmetry(res["ma_shoulder_rom"], res["la_shoulder_rom"])
 
     res["ma_hip_peak_flex"] = res[ma*"hip_peak_flex"]

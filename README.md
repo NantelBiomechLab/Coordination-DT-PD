@@ -1,4 +1,4 @@
-# Interlimb coordination in Parkinson’s Disease is affected by a visuospatial dual task
+# Interlimb coordination in Parkinson’s Disease is minimally affected by a visuospatial dual task
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6835767.svg)](https://doi.org/10.5281/zenodo.6835767)
 
@@ -37,6 +37,6 @@ notebook(;dir=pwd())
 or if using a system Jupyter installation, start Jupyter from your favorite available shell
 (e.g. Powershell on Windows, bash on any *nix variant, etc.).
 
-The primary analysis is found in the `Analysis` notebook. Two other notebooks related to
+The primary analysis is found in the `Analysis2` notebook. Two other notebooks related to
 this research are also included.
 
